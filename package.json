@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node ./build.mjs",
     "clean": "rm -r dist/",
+    "format": "prettier -l --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.11",
-    "esbuild": "0.23.0"
+    "esbuild": "0.23.0",
+    "prettier": "^3.3.3"
   }
 }
