@@ -2,8 +2,10 @@
   "name": "thunderstore-toolkit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
+    "build": "node ./build.mjs",
+    "clean": "rm -r dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,5 +14,8 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.23.0"
   }
 }
