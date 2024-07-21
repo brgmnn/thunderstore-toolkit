@@ -2,7 +2,7 @@
   "name": "thunderstore-toolkit",
   "version": "0.1.0",
   "description": "",
-  "main": "src/main.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "node ./build.mjs",
     "clean": "rm -r dist/",
