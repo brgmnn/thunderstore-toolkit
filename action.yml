@@ -5,6 +5,8 @@ inputs:
     description: What should the toolkit do
     required: true
   toml-path:
+    description: Path to thunderstore.toml
+    default: "${{ github.workspace }}/thunderstore.toml"
     required: false
 runs:
   using: node20
