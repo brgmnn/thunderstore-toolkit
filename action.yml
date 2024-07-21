@@ -4,6 +4,8 @@ inputs:
   command:
     description: What should the toolkit do
     required: true
+  toml-path:
+    required: false
 runs:
   using: node20
   main: dist/main.js
