@@ -6,4 +6,4 @@ await esbuild.build({
   platform: "node",
   target: "node20.15",
   outfile: "dist/main.js",
-})
+});
