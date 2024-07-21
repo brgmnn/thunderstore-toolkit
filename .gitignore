@@ -1,0 +1,5 @@
+# Javascript related
+/node_modules
+
+# Jetbrains
+/.idea

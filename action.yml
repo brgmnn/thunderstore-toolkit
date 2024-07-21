@@ -1,0 +1,5 @@
+name: Thunderstore Toolkit
+description: Toolkit for working with Thunderstore mods
+runs:
+  using: node20
+  main: index.js
