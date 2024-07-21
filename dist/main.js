@@ -18833,7 +18833,7 @@ var require_core = __commonJS({
       process.env["PATH"] = `${inputPath}${path.delimiter}${process.env["PATH"]}`;
     }
     exports2.addPath = addPath;
-    function getInput2(name, options) {
+    function getInput3(name, options) {
       const val = process.env[`INPUT_${name.replace(/ /g, "_").toUpperCase()}`] || "";
       if (options && options.required && !val) {
         throw new Error(`Input required and not supplied: ${name}`);
@@ -18843,9 +18843,9 @@ var require_core = __commonJS({
       }
       return val.trim();
     }
-    exports2.getInput = getInput2;
+    exports2.getInput = getInput3;
     function getMultilineInput(name, options) {
-      const inputs = getInput2(name, options).split("\n").filter((x) => x !== "");
+      const inputs = getInput3(name, options).split("\n").filter((x) => x !== "");
       if (options && options.trimWhitespace === false) {
         return inputs;
       }
@@ -18855,7 +18855,7 @@ var require_core = __commonJS({
     function getBooleanInput(name, options) {
       const trueValue = ["true", "True", "TRUE"];
       const falseValue = ["false", "False", "FALSE"];
-      const val = getInput2(name, options);
+      const val = getInput3(name, options);
       if (trueValue.includes(val))
         return true;
       if (falseValue.includes(val))
@@ -22711,19 +22711,48 @@ var require_toml = __commonJS({
 });
 
 // src/main.ts
+var core2 = __toESM(require_core());
+
+// src/lib/thunderstore-config.ts
+var fs = __toESM(require("node:fs"));
 var core = __toESM(require_core());
 var toml = __toESM(require_toml());
-var fs = __toESM(require("node:fs"));
-try {
-  const command = core.getInput("command");
+var getConfig = () => {
   const tomlPath = core.getInput("toml-path");
-  console.log(`Hello from action: ${command}`);
   if (tomlPath) {
-    const output = toml.parse(fs.readFileSync(tomlPath, "utf-8"));
-    console.log("--- what we got", output);
+    const output = toml.parse(
+      fs.readFileSync(tomlPath, "utf-8")
+    );
+    return output;
+  }
+  return void 0;
+};
+
+// src/main.ts
+try {
+  const command = core2.getInput("command");
+  console.log(`Hello from action: ${command}`);
+  switch (command) {
+    case "sync": {
+      const config = getConfig();
+      const manifest = {};
+      manifest["name"] = config.package.name;
+      manifest["version_number"] = config.package.versionNumber;
+      manifest["website_url"] = config.package.websiteUrl;
+      manifest["description"] = config.package.description;
+      manifest["dependencies"] = [];
+      for (const [id, version2] of Object.entries(config.package.dependencies)) {
+        manifest["dependencies"].push(`${id}-${version2}`);
+      }
+      console.log("--- manifest would be:", JSON.stringify(manifest, null, 2));
+      break;
+    }
+    default:
+      console.log(`Usage: ${command}`);
+      break;
   }
 } catch (error) {
-  core.setFailed(error.message);
+  core2.setFailed(error.message);
 }
 /*! Bundled license information:
 
