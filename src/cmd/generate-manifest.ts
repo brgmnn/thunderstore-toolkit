@@ -19,7 +19,7 @@ export default () => {
   }
 
   const manifestData = JSON.stringify(manifest, null, 2);
-    const filename = path.join(path.dirname(tomlPath), "manifest.json");
+  const filename = path.join(path.dirname(tomlPath), "manifest.json");
 
   fs.writeFileSync(filename, manifestData);
 
